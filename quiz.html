@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>youssefchemlal_Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripte.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="liste">
+                <ul>
+                    <li><a href="index.html" title="acceil">acceil</a></li>
+                    <li><a href="quiz.html" title="quiz">Quiz</a></li>
+                    <li><a href="liste.html" title="liste">liste</a></li>
+                </ul>
+            </div>
+            <div class="space"> </div>
+            <div class="image-title2">
+                <img src="images03.jpg" alt="">
+                <h1>welcome to the "Mental-Quiz"</h1>
+            </div>
+            <div class="content-quiz">
+                <div class="quiz-info">
+                    <div class="score-actuel">
+                        Score: <span id="score">0</span> points
+                    </div>
+                    <div class="timer">
+                        Temps restant: <span id="countdown">30</span>s
+                    </div>
+                    <div class="question-progress">
+                        Question <span id="current-question">1</span>/<span id="total-questions">5</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress" class="progress"></div>
+                </div>
+                <div class="question-types">
+                    <div class="type-indicator">
+                        <i class="fas fa-list-ul"></i>
+                        <span>QCM</span>
+                    </div>
+                </div>
+                <div class="question-quiz">
+                    <div class="question01" data-type="qcm">
+                        <h1>Quel est le symbole chimique de l'eau ?</h1>
+                        <div class="buttons-container">
+                            <button onclick="checkAnswer(0)" id="O2-1" class="option">
+                                <span class="option-letter">A</span> O2
+                            </button>
+                            <button onclick="checkAnswer(1)" id="O2-2" class="option">
+                                <span class="option-letter">B</span> H2O
+                            </button>
+                            <button onclick="checkAnswer(2)" id="O2-3" class="option">
+                                <span class="option-letter">C</span> CO2
+                            </button>
+                            <button onclick="nextQuestion()" id="suivant">suivant</button>
+                        </div>
+                    </div>
+                    <div class="question01 hidden" data-type="true-false">
+                        <h1 class="question-text">Le stress peut causer des problèmes physiques.</h1>
+                        <div class="true-false-container">
+                            <button onclick="checkTrueFalse(true)" class="true-btn" id="true-button">
+                                <i class="fas fa-check"></i> Vrai
+                            </button>
+                            <button onclick="checkTrueFalse(false)" class="false-btn" id="false-button">
+                                <i class="fas fa-times"></i> Faux
+                            </button>
+                        </div>
+                        <div class="explanation hidden">
+                            <p class="explanation-text"></p>
+                        </div>
+                        <button onclick="nextQuestion()" id="suivant-tf" class="suivant hidden">Suivant</button>
+                    </div>
+                    <div class="question01 hidden" data-type="text">
+                        <h1>Quelle est la capitale de la France ?</h1>
+                        <div class="text-input-container">
+                            <input 
+                                type="text" 
+                                id="text-answer" 
+                                class="text-answer-input"
+                                placeholder="Tapez votre réponse ici..."
+                                oninput="checkTextAnswer(this.value)"
+                            >
+                            <div class="suggestion-box hidden"></div>
+                        </div>
+                        <button onclick="submitTextAnswer()" id="submit-text" class="submit-btn">Valider</button>
+                        <button onclick="nextQuestion()" id="suivant-text" class="suivant hidden">Suivant</button>
+                        <div class="explanation hidden">
+                            <p class="explanation-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="quiz-results hidden">
+        <h2>Résultats du Quiz</h2>
+        <div class="results-content">
+            <div class="score-final">
+                <h3>Score Final</h3>
+                <p><span id="final-score">0</span> points</p>
+            </div>
+            <div class="statistiques">
+                <h3>Statistiques</h3>
+                <p>Bonnes réponses: <span id="correct-answers">0</span></p>
+                <p>Mauvaises réponses: <span id="wrong-answers">0</span></p>
+                <p>Temps total: <span id="total-time">0</span> secondes</p>
+            </div>
+            <div class="buttons-results">
+                <button onclick="restartQuiz()" class="restart-btn">Recommencer</button>
+                <button onclick="window.location.href='index.html'" class="home-btn">Accueil</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateQuestionType(type) {
+            const indicator = document.querySelector('.type-indicator');
+            const icon = indicator.querySelector('i');
+            const text = indicator.querySelector('span');
+            
+            if (type === 'true-false') {
+                icon.className = 'fas fa-check-circle';
+                text.textContent = 'VRAI/FAUX';
+            } else {
+                icon.className = 'fas fa-list-ul';
+                text.textContent = 'QCM';
+            }
+        }
+
+        function resetTrueFalseButtons() {
+            const trueBtn = document.getElementById('true-button');
+            const falseBtn = document.getElementById('false-button');
+            const suivantBtn = document.getElementById('suivant-tf');
+            const explanation = document.querySelector('.explanation');
+            
+            trueBtn.className = 'true-btn';
+            falseBtn.className = 'false-btn';
+            trueBtn.disabled = false;
+            falseBtn.disabled = false;
+            suivantBtn.classList.add('hidden');
+            explanation.classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
